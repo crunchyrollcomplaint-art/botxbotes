@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: telegram-video-compressor
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_API_ID
+        sync: false
+      - key: TELEGRAM_API_HASH
+        sync: false
+      - key: LOCAL_BOT_API
+        value: "true"
+      - key: TELEGRAM_API_BASE_URL
+        value: http://127.0.0.1:8081
+      - key: LOCAL_BOT_API_PORT
+        value: "8081"
+      - key: LOCAL_BOT_API_BINARY
+        value: /usr/local/bin/telegram-bot-api
+      - key: LOCAL_BOT_API_DATA_DIRECTORY
+        value: /tmp/telegram-bot-api-data
+      - key: LOCAL_BOT_API_TEMP_DIRECTORY
+        value: /tmp/telegram-bot-api-temp
+      - key: UPDATE_MODE
+        value: polling
+      - key: TEMP_DIRECTORY
+        value: /tmp/telegram-video-compressor
+      - key: MAX_CONCURRENT_JOBS
+        value: "1"
+      - key: QUEUE_LIMIT_PER_USER
+        value: "10"
+      - key: MAX_INPUT_BYTES
+        value: "0"
+      - key: MAX_OUTPUT_BYTES
+        value: "0"
+      - key: PORT
+        value: "10000"
